@@ -1,0 +1,13 @@
+@model Prestamo
+@{ ViewData["Title"] = "Detalle del préstamo"; }
+<h2 class="mb-4">Detalle del préstamo</h2>
+<dl class="row card p-4">
+    <dt class="col-sm-3">Libro</dt><dd class="col-sm-9">@Model.Libro?.Titulo</dd>
+    <dt class="col-sm-3">Usuario</dt><dd class="col-sm-9">@Model.Usuario?.NombreCompleto (@Model.Usuario?.Email)</dd>
+    <dt class="col-sm-3">Fecha de solicitud</dt><dd class="col-sm-9">@Model.FechaSolicitud.ToString("dd/MM/yyyy HH:mm")</dd>
+    <dt class="col-sm-3">Fecha de préstamo</dt><dd class="col-sm-9">@(Model.FechaPrestamo?.ToString("dd/MM/yyyy") ?? "-")</dd>
+    <dt class="col-sm-3">Devolución esperada</dt><dd class="col-sm-9">@(Model.FechaDevolucionEsperada?.ToString("dd/MM/yyyy") ?? "-")</dd>
+    <dt class="col-sm-3">Devolución real</dt><dd class="col-sm-9">@(Model.FechaDevolucionReal?.ToString("dd/MM/yyyy") ?? "-")</dd>
+    <dt class="col-sm-3">Estado</dt><dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+<a asp-action="Index" class="btn btn-secondary">Volver</a>

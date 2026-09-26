@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Dashboard Bibliotecario";
+    var solicitudes = ViewBag.SolicitudesRecientes as List<Prestamo>;
+}
+<h2 class="mb-4">Panel del Bibliotecario</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Libros en catálogo</h6>
+            <h2>@ViewBag.TotalLibros</h2>
+            <a asp-controller="Libros" asp-action="Index" class="small">Gestionar libros →</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center border-warning">
+            <h6 class="text-muted">Solicitudes pendientes</h6>
+            <h2 class="text-warning">@ViewBag.PrestamosPendientes</h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Préstamos activos</h6>
+            <h2>@ViewBag.PrestamosActivos</h2>
+            <a asp-controller="Prestamos" asp-action="Index" class="small">Ver préstamos →</a>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <h5>Solicitudes recientes pendientes de aprobación</h5>
+    <table class="table table-sm mt-2">
+        <thead><tr><th>Libro</th><th>Usuario</th><th>Fecha</th><th></th></tr></thead>
+        <tbody>
+        @if (solicitudes != null)
+        {
+            foreach (var p in solicitudes)
+            {
+                <tr>
+                    <td>@p.Libro?.Titulo</td>
+                    <td>@p.Usuario?.NombreCompleto</td>
+                    <td>@p.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <form method="post" asp-controller="Prestamos" asp-action="Aprobar" asp-route-id="@p.Id" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button class="btn btn-sm btn-success">Aprobar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

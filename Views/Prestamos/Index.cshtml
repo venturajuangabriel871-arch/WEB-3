@@ -1,0 +1,44 @@
+@model List<Prestamo>
+@{
+    ViewData["Title"] = "Préstamos";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de préstamos</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Registrar préstamo</a>
+</div>
+
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Todos</a>
+    <a asp-action="Index" asp-route-estado="Solicitado" class="btn btn-sm btn-outline-warning">Pendientes</a>
+    <a asp-action="Index" asp-route-estado="Aprobado" class="btn btn-sm btn-outline-primary">Aprobados</a>
+    <a asp-action="Index" asp-route-estado="Devuelto" class="btn btn-sm btn-outline-success">Devueltos</a>
+</div>
+
+<table class="table table-striped">
+    <thead><tr><th>Libro</th><th>Usuario</th><th>Solicitud</th><th>Devolución esperada</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Libro?.Titulo</td>
+            <td>@p.Usuario?.NombreCompleto</td>
+            <td>@p.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+            <td>@(p.FechaDevolucionEsperada?.ToString("dd/MM/yyyy") ?? "-")</td>
+            <td>@p.Estado</td>
+            <td class="text-nowrap">
+                @if (p.Estado == EstadoPrestamo.Solicitado)
+                {
+                    <form method="post" asp-action="Aprobar" asp-route-id="@p.Id" class="d-inline">@Html.AntiForgeryToken()<button class="btn btn-sm btn-success">Aprobar</button></form>
+                    <form method="post" asp-action="Rechazar" asp-route-id="@p.Id" class="d-inline">@Html.AntiForgeryToken()<button class="btn btn-sm btn-outline-danger">Rechazar</button></form>
+                }
+                @if (p.Estado == EstadoPrestamo.Aprobado)
+                {
+                    <form method="post" asp-action="Devolver" asp-route-id="@p.Id" class="d-inline">@Html.AntiForgeryToken()<button class="btn btn-sm btn-primary">Registrar devolución</button></form>
+                }
+                <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-outline-secondary">Ver</a>
+                <a asp-action="Delete" asp-route-id="@p.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Mi Dashboard";
+    var recientes = ViewBag.MisPrestamosRecientes as List<Prestamo>;
+}
+<h2 class="mb-4">Mi panel</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Libros en catálogo</h6>
+            <h2>@ViewBag.TotalLibrosCatalogo</h2>
+            <a asp-controller="Usuario" asp-action="Catalogo" class="small">Ver catálogo →</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Mis préstamos activos</h6>
+            <h2>@ViewBag.MisPrestamosActivos</h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 text-center border-warning">
+            <h6 class="text-muted">Mis solicitudes pendientes</h6>
+            <h2 class="text-warning">@ViewBag.MisSolicitudesPendientes</h2>
+            <a asp-controller="Usuario" asp-action="MisPrestamos" class="small">Ver mis préstamos →</a>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <h5>Mi actividad reciente</h5>
+    <table class="table table-sm mt-2">
+        <thead><tr><th>Libro</th><th>Estado</th><th>Fecha de solicitud</th></tr></thead>
+        <tbody>
+        @if (recientes != null)
+        {
+            foreach (var p in recientes)
+            {
+                <tr>
+                    <td>@p.Libro?.Titulo</td>
+                    <td>@p.Estado</td>
+                    <td>@p.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

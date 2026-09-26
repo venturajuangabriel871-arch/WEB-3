@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Dashboard Administrador";
+    var ultimos = ViewBag.UltimosPrestamos as List<Prestamo>;
+}
+<h2 class="mb-4">Panel del Administrador</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Libros registrados</h6>
+            <h2>@ViewBag.TotalLibros</h2>
+            <a asp-controller="Libros" asp-action="Index" class="small">Ver libros →</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Usuarios del sistema</h6>
+            <h2>@ViewBag.TotalUsuarios</h2>
+            <a asp-controller="Usuarios" asp-action="Index" class="small">Ver usuarios →</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <h6 class="text-muted">Préstamos totales</h6>
+            <h2>@ViewBag.TotalPrestamos</h2>
+            <a asp-controller="Prestamos" asp-action="Index" class="small">Ver préstamos →</a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 text-center border-warning">
+            <h6 class="text-muted">Solicitudes pendientes</h6>
+            <h2 class="text-warning">@ViewBag.PrestamosPendientes</h2>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <h5>Últimos préstamos registrados</h5>
+    <table class="table table-sm mt-2">
+        <thead><tr><th>Libro</th><th>Usuario</th><th>Estado</th><th>Fecha solicitud</th></tr></thead>
+        <tbody>
+        @if (ultimos != null)
+        {
+            foreach (var p in ultimos)
+            {
+                <tr>
+                    <td>@p.Libro?.Titulo</td>
+                    <td>@p.Usuario?.NombreCompleto</td>
+                    <td>@p.Estado</td>
+                    <td>@p.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

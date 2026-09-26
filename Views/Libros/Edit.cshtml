@@ -1,0 +1,17 @@
+@model Libro
+@{ ViewData["Title"] = "Editar libro"; }
+<h2 class="mb-4">Editar libro</h2>
+<form asp-action="Edit" method="post" class="card p-4">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3"><label asp-for="Titulo" class="form-label"></label><input asp-for="Titulo" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Autor" class="form-label"></label><input asp-for="Autor" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="ISBN" class="form-label"></label><input asp-for="ISBN" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Editorial" class="form-label"></label><input asp-for="Editorial" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Categoria" class="form-label"></label><input asp-for="Categoria" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="AnioPublicacion" class="form-label"></label><input asp-for="AnioPublicacion" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="CantidadTotal" class="form-label"></label><input asp-for="CantidadTotal" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="CantidadDisponible" class="form-label"></label><input asp-for="CantidadDisponible" class="form-control" /></div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

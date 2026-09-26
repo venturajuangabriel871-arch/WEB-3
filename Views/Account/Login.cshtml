@@ -1,0 +1,35 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+<div class="card login-box p-4">
+    <h3 class="text-center mb-1">📚 Biblioteca UV Sucre</h3>
+    <p class="text-center text-muted mb-4">Sede Sucre - Inicio de sesión</p>
+
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" placeholder="correo@uvsucre.edu.bo" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-check mb-3">
+            <input asp-for="RememberMe" class="form-check-input" />
+            <label asp-for="RememberMe" class="form-check-label"></label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+    </form>
+
+    <hr />
+    <small class="text-muted">
+        Cuentas de prueba (sembradas automáticamente):<br />
+        Admin: admin@uvsucre.edu.bo / Admin123$<br />
+        Bibliotecario: bibliotecario@uvsucre.edu.bo / Biblio123$<br />
+        Usuario: usuario@uvsucre.edu.bo / Usuario123$
+    </small>
+</div>

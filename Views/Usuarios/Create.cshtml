@@ -1,0 +1,16 @@
+@model UsuarioFormViewModel
+@{ ViewData["Title"] = "Nuevo usuario"; }
+<h2 class="mb-4">Registrar nuevo usuario</h2>
+<form asp-action="Create" method="post" class="card p-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3"><label asp-for="Nombres" class="form-label"></label><input asp-for="Nombres" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Apellidos" class="form-label"></label><input asp-for="Apellidos" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="Password" class="form-label"></label><input asp-for="Password" type="password" class="form-control" /></div>
+    <div class="mb-3">
+        <label asp-for="Rol" class="form-label"></label>
+        <select asp-for="Rol" class="form-select" asp-items="Model.RolesDisponibles.Select(r => new SelectListItem(r, r))"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,36 @@
+@model List<Libro>
+@{
+    ViewData["Title"] = "Libros";
+}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Gestión de libros</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Nuevo libro</a>
+</div>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <input type="text" name="busqueda" value="@ViewBag.Busqueda" class="form-control" placeholder="Buscar por título, autor o ISBN" />
+    </div>
+    <div class="col-auto"><button class="btn btn-outline-primary">Buscar</button></div>
+</form>
+
+<table class="table table-striped">
+    <thead><tr><th>Título</th><th>Autor</th><th>ISBN</th><th>Categoría</th><th>Disponibles</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var libro in Model)
+    {
+        <tr>
+            <td>@libro.Titulo</td>
+            <td>@libro.Autor</td>
+            <td>@libro.ISBN</td>
+            <td>@libro.Categoria</td>
+            <td>@libro.CantidadDisponible / @libro.CantidadTotal</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-secondary">Ver</a>
+                <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

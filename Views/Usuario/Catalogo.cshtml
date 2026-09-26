@@ -1,0 +1,34 @@
+@model List<Libro>
+@{
+    ViewData["Title"] = "Catálogo de libros";
+}
+<h2 class="mb-3">Catálogo de libros</h2>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-auto">
+        <input type="text" name="busqueda" value="@ViewBag.Busqueda" class="form-control" placeholder="Buscar por título, autor o categoría" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    </div>
+</form>
+
+<div class="row g-3">
+    @foreach (var libro in Model)
+    {
+        <div class="col-md-4">
+            <div class="card p-3 h-100">
+                <h5>@libro.Titulo</h5>
+                <p class="mb-1 text-muted">@libro.Autor</p>
+                <p class="mb-1"><span class="badge bg-secondary">@libro.Categoria</span></p>
+                <p class="mb-2">Disponibles: <strong>@libro.CantidadDisponible</strong> / @libro.CantidadTotal</p>
+                <form method="post" asp-controller="Usuario" asp-action="Solicitar" asp-route-libroId="@libro.Id">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary w-100" @(libro.CantidadDisponible <= 0 ? "disabled" : "")>
+                        @(libro.CantidadDisponible <= 0 ? "No disponible" : "Solicitar préstamo")
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

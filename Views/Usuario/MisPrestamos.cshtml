@@ -1,0 +1,34 @@
+@model List<Prestamo>
+@{
+    ViewData["Title"] = "Mis préstamos";
+}
+<h2 class="mb-4">Mis préstamos</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr><th>Libro</th><th>Fecha solicitud</th><th>Fecha devolución esperada</th><th>Estado</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Libro?.Titulo</td>
+            <td>@p.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+            <td>@(p.FechaDevolucionEsperada?.ToString("dd/MM/yyyy") ?? "-")</td>
+            <td>
+                @{
+                    var claseBadge = p.Estado switch
+                    {
+                        EstadoPrestamo.Solicitado => "bg-warning text-dark",
+                        EstadoPrestamo.Aprobado => "bg-primary",
+                        EstadoPrestamo.Devuelto => "bg-success",
+                        EstadoPrestamo.Rechazado => "bg-danger",
+                        _ => "bg-secondary"
+                    };
+                }
+                <span class="badge @claseBadge">@p.Estado</span>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

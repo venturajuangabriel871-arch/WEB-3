@@ -1,0 +1,13 @@
+@model Prestamo
+@{ ViewData["Title"] = "Eliminar préstamo"; }
+<h2 class="mb-4 text-danger">¿Eliminar este registro de préstamo?</h2>
+<dl class="row card p-4">
+    <dt class="col-sm-3">Libro</dt><dd class="col-sm-9">@Model.Libro?.Titulo</dd>
+    <dt class="col-sm-3">Usuario</dt><dd class="col-sm-9">@Model.Usuario?.NombreCompleto</dd>
+    <dt class="col-sm-3">Estado</dt><dd class="col-sm-9">@Model.Estado</dd>
+</dl>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
